@@ -6,9 +6,16 @@ feeds:
     branch: master
 packages:
   - luci-app-mwan3
-
-
-
+  - sudo apt install build-essential libncurses5-dev gawk git libssl-dev gettext zlib1g-dev swig unzip time rsync python3 python3-setuptools python3-yaml
+  - git clone https://github.com/gl-inet/gl-infra-builder.git
+  - cd gl-infra-builder
+  - python3 setup.py -c  configs/config-mt798x-7.6.6.1.yml
+  - cd mt7981
+  - ./scripts/gen_config.py target_mt7981_gl-mt2500 glinet_depends glinet_nas
+  - git clone https://github.com/gl-inet/glinet4.x.git
+  - cp /home/glinet/work/glinet4.x/pkg_config/gl_pkg_config_mt7981_mt2500.mk  /home/glinet/work/glinet4.x/mt7981/gl_pkg_config.mk
+  - make -j17 GL_PKGDIR=/home/glinet/work/glinet4.x/mt7981/
+  
 diffconfig: |
   CONFIG_PACKAGE_wpad-basic=n
   CONFIG_PACKAGE_wpad=n
